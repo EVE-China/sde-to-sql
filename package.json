@@ -1,0 +1,25 @@
+{
+  "name": "sde-to-sql",
+  "version": "1.0.0",
+  "description": "将sde(STATIC DATA EXPORT)中的yaml转换成可以用于数据库的sql。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EVE-China/sde-to-sql.git"
+  },
+  "keywords": [
+    "eve"
+  ],
+  "author": "fan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EVE-China/sde-to-sql/issues"
+  },
+  "homepage": "https://github.com/EVE-China/sde-to-sql#readme",
+  "dependencies": {
+    "js-yaml": "^3.13.1"
+  }
+}
