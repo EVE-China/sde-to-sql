@@ -51,13 +51,12 @@ CREATE TABLE "market_group_i18n" (
 -- 蓝图
 CREATE TABLE "blueprint" (
   "id"                  INTEGER,
-  "blueprintTypeID"     INTEGER,
   "maxProductionLimit"  INTEGER,
   PRIMARY KEY("id")
 );
 CREATE TABLE "blueprint_activity" (
   "id"    INTEGER,
-  "type"  INTEGER, -- 0 拷贝 1 发明 2 制造 3 材料研究 4 时间研究
+  "type"  INTEGER, -- 0 拷贝 1 发明 2 制造 3 材料研究 4 时间研究 5 反应
   "time"  INTEGER,
   PRIMARY KEY("id")
 );
