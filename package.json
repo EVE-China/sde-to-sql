@@ -2,8 +2,10 @@
   "name": "sde-to-sql",
   "version": "1.0.0",
   "description": "将sde(STATIC DATA EXPORT)中的yaml转换成可以用于数据库的sql。",
-  "main": "index.js",
+  "main": "./build/index.js",
   "scripts": {
+    "prestart": "./node_modules/typescript/bin/tsc",
+    "start": "node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +22,11 @@
   },
   "homepage": "https://github.com/EVE-China/sde-to-sql#readme",
   "dependencies": {
+    "@types/js-yaml": "^3.12.3",
     "js-yaml": "^3.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4",
+    "typescript": "^3.8.3"
   }
 }
