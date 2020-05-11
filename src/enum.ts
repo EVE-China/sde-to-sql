@@ -29,3 +29,9 @@ export enum ActivityType {
    */
   Reaction
 }
+
+export enum DataBaseType {
+
+  SQLITE = 0
+  
+}

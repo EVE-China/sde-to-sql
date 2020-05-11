@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { ActivityType } from '../enum';
 
 /**
@@ -47,7 +48,7 @@ function toSqliteType(type: string): string {
  * @param bluePrint 蓝图对象
  */
 export function saveBluePrint(typeId: string, bluePrint: any): string {
-  let sql = '';
+  let sql = fs.readFileSync(`${__dirname}/init.sql`).toString();;
   if (null == bluePrint) {
     return sql;
   }

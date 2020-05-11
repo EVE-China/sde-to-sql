@@ -4,7 +4,9 @@
   "description": "将sde(STATIC DATA EXPORT)中的yaml转换成可以用于数据库的sql。",
   "main": "./build/index.js",
   "scripts": {
-    "prestart": "./node_modules/typescript/bin/tsc",
+    "build": "./node_modules/typescript/bin/tsc",
+    "postbuild": "node ./dist/copy.js",
+    "prestart": "npm run build",
     "start": "node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
