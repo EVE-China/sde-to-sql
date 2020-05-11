@@ -13,11 +13,11 @@ export function getBluePrintInitSql(): string {
  * @param typeId    蓝图编号
  * @param bluePrint 蓝图对象
  */
-export function saveBluePrint(typeId: string, bluePrint: any): string {
+export function saveBluePrint(typeId: number, bluePrint: any): string {
   if (null == bluePrint) {
     return '';
   }
-  let sql = `REPLACE INTO "blueprint"("id", "maxProductionLimit") VALUES("${typeId}", ${bluePrint.maxProductionLimit});`;
+  let sql = `REPLACE INTO "blueprint"("id", "maxProductionLimit") VALUES(${typeId}, ${bluePrint.maxProductionLimit});`;
   
   const activities = bluePrint.activities;
   if (null == activities) {
@@ -57,7 +57,7 @@ export function saveBluePrint(typeId: string, bluePrint: any): string {
  * @param typeId    蓝图编号
  * @param activity  活动
  */
-function saveBluePrintActivity(typeId:string, type: ActivityType, activity: any): string {
+function saveBluePrintActivity(typeId :number, type: ActivityType, activity: any): string {
   let sql = '';
   if (null == activity) {
     return sql;
@@ -85,8 +85,8 @@ function saveBluePrintActivity(typeId:string, type: ActivityType, activity: any)
  * @param type   活动类型
  * @param time   时间
  */
-function _saveBluePrintActivity(typeId: string, type: ActivityType, time: number): string {
-  return `REPLACE INTO "blueprint_activity"("id", "type", "time") VALUES("${typeId}", ${type}, ${time});`;
+function _saveBluePrintActivity(typeId: number, type: ActivityType, time: number): string {
+  return `REPLACE INTO "blueprint_activity"("id", "type", "time") VALUES(${typeId}, ${type}, ${time});`;
 }
 
 /**
@@ -96,7 +96,7 @@ function _saveBluePrintActivity(typeId: string, type: ActivityType, time: number
  * @param type        活动类型
  * @param materials   材料集合
  */
-function saveBluePrintMaterials(typeId: string, type: ActivityType, materials: any): string {
+function saveBluePrintMaterials(typeId: number, type: ActivityType, materials: any): string {
   let sql = '';
   if (null == materials || materials.length == 0) {
     return sql;
@@ -105,7 +105,7 @@ function saveBluePrintMaterials(typeId: string, type: ActivityType, materials: a
     if (sql.length != 0) {
       sql += '\n';  
     }
-    sql += `REPLACE INTO "blueprint_material"("id", "activityType", "typeID", "quantity") VALUES("${typeId}", ${type}, ${material.typeID}, ${material.quantity});`;
+    sql += `REPLACE INTO "blueprint_material"("id", "activityType", "typeID", "quantity") VALUES(${typeId}, ${type}, ${material.typeID}, ${material.quantity});`;
   }
   return sql;
 }
@@ -117,7 +117,7 @@ function saveBluePrintMaterials(typeId: string, type: ActivityType, materials: a
  * @param type     活动类型
  * @param skills   技能集合
  */
-function saveBluePrintSkills(typeId: string, type: ActivityType, skills: any): string {
+function saveBluePrintSkills(typeId: number, type: ActivityType, skills: any): string {
   let sql = '';
   if (null == skills || skills.length == 0) {
     return sql;
@@ -126,7 +126,7 @@ function saveBluePrintSkills(typeId: string, type: ActivityType, skills: any): s
     if (sql.length != 0) {
       sql += '\n';  
     }
-    sql += `REPLACE INTO "blueprint_skill"("id", "activityType", "typeID", "level") VALUES("${typeId}", ${type}, ${skill.typeID}, ${skill.level});`;
+    sql += `REPLACE INTO "blueprint_skill"("id", "activityType", "typeID", "level") VALUES(${typeId}, ${type}, ${skill.typeID}, ${skill.level});`;
   }
   return sql;
 }
@@ -138,7 +138,7 @@ function saveBluePrintSkills(typeId: string, type: ActivityType, skills: any): s
  * @param type     活动类型
  * @param products 产品集合
  */
-function saveBluePrintProducts(typeId: string, type: ActivityType, products: any): string {
+function saveBluePrintProducts(typeId: number, type: ActivityType, products: any): string {
   let sql = '';
   if (null == products || products.length == 0) {
     return sql;
@@ -148,7 +148,7 @@ function saveBluePrintProducts(typeId: string, type: ActivityType, products: any
       sql += '\n';  
     }
     const probability = product.probability != null ? product.probability : "NULL";
-    sql += `REPLACE INTO "blueprint_product"("id", "activityType", "probability", "typeID", "quantity") VALUES("${typeId}", ${type}, ${probability}, ${product.typeID}, ${product.quantity});`;
+    sql += `REPLACE INTO "blueprint_product"("id", "activityType", "probability", "typeID", "quantity") VALUES(${typeId}, ${type}, ${probability}, ${product.typeID}, ${product.quantity});`;
   }
   return sql;
 }

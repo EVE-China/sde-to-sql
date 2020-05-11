@@ -39,5 +39,4 @@ function toSqliteType(type: string): string {
   }
 }
 
-export { getBluePrintInitSql, saveBluePrint } from './blueprint';
-export { saveType } from './type';
+export { SqliteGenerator } from './sql_generator'

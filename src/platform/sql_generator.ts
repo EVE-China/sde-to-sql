@@ -1,3 +1,6 @@
+import { SqliteGenerator } from "./sqlite";
+import { getBluePrintInitSql } from "./sqlite/blueprint";
+
 /**
  * sql生成器接口
  */
@@ -27,7 +30,7 @@ export class SqlGeneratorFactory {
 
     switch(db) {
       case 'sqlite':
-        return null;
+        return new SqliteGenerator();
       default:
         throw new Error('尚为支持的数据库');
     }

@@ -20,7 +20,7 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
   protected static marketGroupsYamlPath = 'sde/fsd/marketGroups.yaml';
   
   protected static blueprintsYamlPath = 'sde/fsd/blueprints.yaml';
-  
+
   protected abstract initBluePrint(): string;
 
   protected abstract initBluePrintData(): string;

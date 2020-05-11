@@ -1,11 +1,6 @@
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
-
-import { getFieldsByYaml, saveBluePrint, saveType } from './utils';
-
-const typeIdsYamlPath = 'sde/fsd/typeIDs.yaml';
-const marketGroupsYamlPath = 'sde/fsd/marketGroups.yaml';
-const blueprintsYamlPath = 'sde/fsd/blueprints.yaml';
+import { SqlGeneratorFactory } from './platform/sql_generator';
 
 // let fields = getFieldsByYaml(typeIdsYamlPath);
 // let sql = generateDDLByFields('type', 'id', fields);
@@ -18,28 +13,12 @@ const blueprintsYamlPath = 'sde/fsd/blueprints.yaml';
 // fields = getFieldsByYaml(blueprintsYamlPath);
 // sql = generateDDLByFields('blueprint', 'id', fields);
 // console.log(sql);
-let doc = yaml.safeLoad(fs.readFileSync(blueprintsYamlPath, 'utf8'));
 
 // process.argv[2]
 const db = 'sqlite';
 
-let sql = '';
-for (const id in doc) {
-  const blueprint = doc[id];
-  if (sql.length != 0) {
-    sql += '\n';
-  }
-  sql += saveBluePrint(db, id, blueprint);
-}
-fs.writeFileSync('./dist/blueprint.sql', sql);
+const sqlGenerator = SqlGeneratorFactory.getGenerator(db);
 
-doc = yaml.safeLoad(fs.readFileSync(blueprintsYamlPath, 'utf8'));
-sql = '';
-for (const id in doc) {
-  const type = doc[id];
-  if (sql.length != 0) {
-    sql += '\n';
-  }
-  sql += saveType(db, id, type);
-}
-fs.writeFileSync('./dist/type.sql', sql);
+let sql = sqlGenerator.init();
+sql += '\n' + sqlGenerator.data();
+fs.writeFileSync('./dist/eve.sql', sql);
