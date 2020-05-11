@@ -1,45 +1,11 @@
 import * as fs from 'fs';
-import { ActivityType } from '../enum';
+import { ActivityType } from '../../enum';
 
 /**
- * 根据Fields生成表创建sql
- * 类型为object的字段会被跳过
- * 
- * @deprecated 生成的sql并不能直接使用
- * @param tableName 表名
- * @param primaryKey 表主键
- * @param fields 字段
+ * 返回蓝图需要的建表语句
  */
-export function generateDDLByFields(tableName: string, primaryKey: string, fields: { [key: string]: string }) {
-
-  let sql = `CREATE TABLE "${tableName}" (
-    "${primaryKey}"	INTEGER`;
-  for (const field in fields) {
-    const type = fields[field];
-    if ('object' !== type) {
-      sql += `,
-      "${field}"	${toSqliteType(type)}`;
-    } else {
-      console.warn(`${field}类型为object, 已跳过`);
-    }
-  }
-  sql += `,
-  PRIMARY KEY("${primaryKey}")
-  );`;
-  return sql;
-}
-
-function toSqliteType(type: string): string {
-  switch(type) {
-    case 'number':
-      return "REAL";
-    case 'boolean':
-      return "BOOLEAN";
-    case 'string':
-      return "TEXT";
-    default:
-      throw new Error(`尚未支持的类型:${type}`);
-  }
+export function getBluePrintInitSql(): string {
+  return fs.readFileSync(`${__dirname}/blueprint_init.sql`).toString();
 }
 
 /**
@@ -48,11 +14,10 @@ function toSqliteType(type: string): string {
  * @param bluePrint 蓝图对象
  */
 export function saveBluePrint(typeId: string, bluePrint: any): string {
-  let sql = fs.readFileSync(`${__dirname}/init.sql`).toString();;
   if (null == bluePrint) {
-    return sql;
+    return '';
   }
-  sql += `REPLACE INTO "blueprint"("id", "maxProductionLimit") VALUES("${typeId}", ${bluePrint.maxProductionLimit});`;
+  let sql = `REPLACE INTO "blueprint"("id", "maxProductionLimit") VALUES("${typeId}", ${bluePrint.maxProductionLimit});`;
   
   const activities = bluePrint.activities;
   if (null == activities) {

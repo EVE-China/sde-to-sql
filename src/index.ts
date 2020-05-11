@@ -1,7 +1,7 @@
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
 
-import { getFieldsByYaml, saveBluePrint } from './utils';
+import { getFieldsByYaml, saveBluePrint, saveType } from './utils';
 
 const typeIdsYamlPath = 'sde/fsd/typeIDs.yaml';
 const marketGroupsYamlPath = 'sde/fsd/marketGroups.yaml';
@@ -18,7 +18,7 @@ const blueprintsYamlPath = 'sde/fsd/blueprints.yaml';
 // fields = getFieldsByYaml(blueprintsYamlPath);
 // sql = generateDDLByFields('blueprint', 'id', fields);
 // console.log(sql);
-const doc = yaml.safeLoad(fs.readFileSync(blueprintsYamlPath, 'utf8'));
+let doc = yaml.safeLoad(fs.readFileSync(blueprintsYamlPath, 'utf8'));
 
 // process.argv[2]
 const db = 'sqlite';
@@ -32,3 +32,14 @@ for (const id in doc) {
   sql += saveBluePrint(db, id, blueprint);
 }
 fs.writeFileSync('./dist/blueprint.sql', sql);
+
+doc = yaml.safeLoad(fs.readFileSync(blueprintsYamlPath, 'utf8'));
+sql = '';
+for (const id in doc) {
+  const type = doc[id];
+  if (sql.length != 0) {
+    sql += '\n';
+  }
+  sql += saveType(db, id, type);
+}
+fs.writeFileSync('./dist/type.sql', sql);
