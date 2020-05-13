@@ -43,10 +43,26 @@ export function objToSql(obj: any): string {
     case 'boolean':
       return `${obj}`;
     case 'string':
-      return `"${obj}"`;
+      return `"${escape(obj)}"`;
     case 'undefined':
       return 'NULL';
     default:
       throw new Error(`尚未支持的类型:${type}`);
   }
+}
+
+/**
+ * 转义
+ * @param obj 字符串
+ */
+function escape(obj: string): string {
+  let value = '';
+  for(let i = 0; i < obj.length; i++) {
+    let ch = obj.charAt(i);
+    if ('"' === ch) {
+      value += '"';
+    }
+    value += ch;
+  }
+  return value;
 }

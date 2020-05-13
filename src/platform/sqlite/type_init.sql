@@ -1,4 +1,4 @@
-CREATE TABLE "type" (
+CREATE TABLE IF NOT EXISTS "type" (
   "id"                      INTEGER,
   "groupID"                 INTEGER,
   "mass"                    REAL,
@@ -21,7 +21,7 @@ CREATE TABLE "type" (
   PRIMARY KEY("id")
 );
 
-CREATE TABLE "type_i18n" (
+CREATE TABLE IF NOT EXISTS "type_i18n" (
 	"typeId"       INTEGER,
 	"key"      TEXT, -- name, description
 	"language" TEXT, -- zh
@@ -32,7 +32,7 @@ CREATE TABLE "type_i18n" (
 -- TODO type_masteries
 -- TODO type_traits
 
-CREATE TABLE "market_group" (
+CREATE TABLE IF NOT EXISTS "market_group" (
 	"id"            INTEGER,
 	"hasTypes"      INTEGER,
 	"icon"          INTEGER,
@@ -40,7 +40,7 @@ CREATE TABLE "market_group" (
 	PRIMARY KEY("id")
 );
 
-CREATE TABLE "market_group_i18n" (
+CREATE TABLE IF NOT EXISTS "market_group_i18n" (
 	"id"       INTEGER,
 	"key"      TEXT, -- name, description
 	"language" TEXT, -- zh

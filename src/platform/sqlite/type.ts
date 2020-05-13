@@ -46,7 +46,7 @@ function saveTypeI18n(typeId: number, key: string, arrays: any): string {
     if (sql.length != 0) {
       sql += '\n';
     }
-    sql += `REPLACE INTO "type_i18n"("typeId", "key", "language", "value") VALUES(${objToSql(typeId)}, ${objToSql(key)}, ${objToSql(language)}, ${objToSql(name)})`;
+    sql += `REPLACE INTO "type_i18n"("typeId", "key", "language", "value") VALUES(${objToSql(typeId)}, ${objToSql(key)}, ${objToSql(language)}, ${objToSql(name)});`;
   }
   return sql;
 }
