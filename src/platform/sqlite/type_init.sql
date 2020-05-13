@@ -22,11 +22,11 @@ CREATE TABLE "type" (
 );
 
 CREATE TABLE "type_i18n" (
-	"id"       INTEGER,
+	"typeId"       INTEGER,
 	"key"      TEXT, -- name, description
 	"language" TEXT, -- zh
 	"value"	   INTEGER,
-	PRIMARY KEY("id", "key", "language")
+	PRIMARY KEY("typeId", "key", "language")
 );
 
 -- TODO type_masteries
