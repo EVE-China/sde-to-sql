@@ -30,6 +30,15 @@ export class SqliteGenerator extends AbstractSqlGenerator {
     }
     return sql;
   }
+
+  data(): string {
+    let sql = 'BEGIN;\n';
+    sql += this.initTypeData();
+    sql += '\n';
+    sql += this.initBluePrintData();
+    sql += 'COMMIT;';
+    return sql;
+  }
 }
 
 /**
