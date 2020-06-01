@@ -21,4 +21,4 @@ const sqlGenerator = SqlGeneratorFactory.getGenerator(db);
 
 let sql = sqlGenerator.init();
 sql += '\n' + sqlGenerator.data();
-fs.writeFileSync('./dist/eve.sql', sql);
+fs.writeFileSync(`./dist/eve.${db}.sql`, sql);
