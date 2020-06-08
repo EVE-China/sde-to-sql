@@ -15,7 +15,10 @@ import { SqlGeneratorFactory } from './platform/sql_generator';
 // console.log(sql);
 
 // process.argv[2]
-const db = 'sqlite';
+let db = process.argv[2];
+if (null == db || db === '') {
+  db = 'sqlite;'
+}
 
 const sqlGenerator = SqlGeneratorFactory.getGenerator(db);
 
