@@ -27,7 +27,6 @@ export class SqlGeneratorFactory {
    * @param db 数据库名称
    */
   static getGenerator(db: string): SqlGenerator {
-
     switch(db) {
       case 'sqlite':
         return new SqliteGenerator();
