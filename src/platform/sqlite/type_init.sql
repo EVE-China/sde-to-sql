@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS "type_i18n" (
 	"typeId"       INTEGER,
 	"key"      TEXT, -- name, description
 	"language" TEXT, -- zh
-	"value"	   INTEGER,
+	"value"	   TEXT,
 	PRIMARY KEY("typeId", "key", "language")
 );
 
