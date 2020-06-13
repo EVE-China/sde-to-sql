@@ -17,12 +17,12 @@ CREATE TABLE eve."blueprint_material" (
   "quantity"     integer,
   PRIMARY KEY("id", "activityType", "typeID")
 );
+-- 由于sde中的数据有重复, 所以取消蓝图技能表的主键
 CREATE TABLE eve."blueprint_skill" (
   "id"           integer,
   "activityType" integer,
   "typeID"       integer,
-  "level"        integer,
-  PRIMARY KEY("id", "activityType", "typeID")
+  "level"        integer
 );
 CREATE TABLE eve."blueprint_product" (
   "id"           integer,

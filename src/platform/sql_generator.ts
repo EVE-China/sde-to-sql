@@ -1,5 +1,6 @@
 import { SqliteGenerator } from "./sqlite";
 import { getBluePrintInitSql } from "./sqlite/blueprint";
+import { PostgreSqlGenerator } from "./postgresql/sql_generator";
 
 /**
  * sql生成器接口
@@ -30,6 +31,8 @@ export class SqlGeneratorFactory {
     switch(db) {
       case 'sqlite':
         return new SqliteGenerator();
+      case 'postgres':
+        return new PostgreSqlGenerator();
       default:
         throw new Error('尚为支持的数据库:' + db);
     }

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { AbstractSqlGenerator } from "../helper";
 import { ActivityType } from '../../enum';
 
-export class SqliteGenerator extends AbstractSqlGenerator {
+export class PostgreSqlGenerator extends AbstractSqlGenerator {
 
   protected initType(): string {
     return fs.readFileSync(`${__dirname}/type_init.sql`).toString();
@@ -13,35 +13,35 @@ export class SqliteGenerator extends AbstractSqlGenerator {
   }
 
   protected getTypeSQL(typeId: number, type: any): string {
-    return 'REPLACE INTO "type"("id", "groupID", "mass", "portionSize", "published", "volume", "radius", "graphicID", "soundID", "iconID", "raceID", "sofFactionName", "basePrice", "marketGroupID", "capacity", "metaGroupID", "variationParentTypeID", "factionID", "sofMaterialSetID") VALUES(' + 
+    return 'INSERT INTO eve."type"("id", "groupID", "mass", "portionSize", "published", "volume", "radius", "graphicID", "soundID", "iconID", "raceID", "sofFactionName", "basePrice", "marketGroupID", "capacity", "metaGroupID", "variationParentTypeID", "factionID", "sofMaterialSetID") VALUES(' + 
       `${objToSql(typeId)}, ${objToSql(type.groupID)}, ${objToSql(type.mass)}, ${objToSql(type.portionSize)}, ${objToSql(type.published)}, ${objToSql(type.volume)}, ${objToSql(type.radius)}, ${objToSql(type.graphicID)}, ${objToSql(type.soundID)}, ${objToSql(type.iconID)}, ${objToSql(type.raceID)}, ${objToSql(type.sofFactionName)}, ${objToSql(type.basePrice)}, ${objToSql(type.marketGroupID)}, ${objToSql(type.capacity)}, ${objToSql(type.metaGroupID)}, ${objToSql(type.variationParentTypeID)}, ${objToSql(type.factionID)}, ${objToSql(type.sofMaterialSetID)}`
       + ');';
   }
 
   protected getTypeI18n(typeId: number, key: string, language: string, value: string): string {
-    return `REPLACE INTO "type_i18n"("typeId", "key", "language", "value") VALUES(${objToSql(typeId)}, ${objToSql(key)}, ${objToSql(language)}, ${objToSql(value)});`;
+    return `INSERT INTO eve."type_i18n"("typeId", "key", "language", "value") VALUES(${objToSql(typeId)}, ${objToSql(key)}, ${objToSql(language)}, ${objToSql(value)});`;
   }
 
   protected getBluePrintSQL(typeId: number, maxProductionLimit: number): string {
-    return `REPLACE INTO "blueprint"("id", "maxProductionLimit") VALUES(${typeId}, ${maxProductionLimit});`;
+    return `INSERT INTO eve."blueprint"("id", "maxProductionLimit") VALUES(${typeId}, ${maxProductionLimit});`;
   }
 
   protected getBluePrintActivitySQL(typeId: number, type: ActivityType, time: number): string {
-    return `REPLACE INTO "blueprint_activity"("id", "type", "time") VALUES(${typeId}, ${type}, ${time});`;
+    return `INSERT INTO eve."blueprint_activity"("id", "type", "time") VALUES(${typeId}, ${type}, ${time});`;
   }
 
   protected getBluePrintMaterialSQL(typeId: number, type: ActivityType, materialId: number, quantity: number): string {
-    return `REPLACE INTO "blueprint_material"("id", "activityType", "typeID", "quantity") VALUES(${typeId}, ${type}, ${materialId}, ${quantity});`;
+    return `INSERT INTO eve."blueprint_material"("id", "activityType", "typeID", "quantity") VALUES(${typeId}, ${type}, ${materialId}, ${quantity});`;
   }
 
   protected getBluePrintSkillSQL(typeId: number, type: ActivityType, skillId: number, level: number): string {
-    return `REPLACE INTO "blueprint_skill"("id", "activityType", "typeID", "level") VALUES(${typeId}, ${type}, ${skillId}, ${level});`;
+    return `INSERT INTO eve."blueprint_skill"("id", "activityType", "typeID", "level") VALUES(${typeId}, ${type}, ${skillId}, ${level});`;
   }
 
   protected getBluePrintProductSQL(typeId: number, type: import("../../enum").ActivityType, probability: number, productId: number, quantity: number): string {
-    return `REPLACE INTO "blueprint_product"("id", "activityType", "probability", "typeID", "quantity") VALUES(${typeId}, ${type}, ${probability}, ${productId}, ${quantity});`;
+    return `INSERT INTO eve."blueprint_product"("id", "activityType", "probability", "typeID", "quantity") VALUES(${typeId}, ${type}, ${probability}, ${productId}, ${quantity});`;
   }
-  
+
 }
 
 /**
@@ -55,7 +55,7 @@ export function objToSql(obj: any): string {
     case 'boolean':
       return `${obj}`;
     case 'string':
-      return `"${escape(obj)}"`;
+      return `'${escape(obj)}'`;
     case 'undefined':
       return 'NULL';
     default:
@@ -71,8 +71,8 @@ function escape(obj: string): string {
   let value = '';
   for(let i = 0; i < obj.length; i++) {
     let ch = obj.charAt(i);
-    if ('"' === ch) {
-      value += '"';
+    if ('\'' === ch) {
+      value += '\'';
     }
     value += ch;
   }
