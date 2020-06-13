@@ -31,7 +31,7 @@ export class SqlGeneratorFactory {
       case 'sqlite':
         return new SqliteGenerator();
       default:
-        throw new Error('尚为支持的数据库');
+        throw new Error('尚为支持的数据库:' + db);
     }
 
   }
