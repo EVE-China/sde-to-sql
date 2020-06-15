@@ -9,6 +9,10 @@
 
 # 操作步骤
 
+在进行下面这些步骤之前，需要[下载并安装 Node.js](https://nodejs.org/en/download/).
+
+Node.js 的版本至少为 v13.13.4 或者更高.
+
 1.下载项目并安装依赖
 ```sh
 git clone git@github.com:EVE-China/sde-to-sql.git
