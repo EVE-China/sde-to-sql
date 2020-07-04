@@ -18,13 +18,11 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
     return sql;
   }
 
-  protected static typeIdsYamlPath = 'sde/fsd/typeIDs.yaml';
+  protected static typeIdsYamlPath = 'sde/sde/fsd/typeIDs.yaml';
 
-  protected static marketGroupsYamlPath = 'sde/fsd/marketGroups.yaml';
+  protected static marketGroupsYamlPath = 'sde/sde/fsd/marketGroups.yaml';
   
-  protected static blueprintsYamlPath = 'sde/fsd/blueprints.yaml';
-
-
+  protected static blueprintsYamlPath = 'sde/sde/fsd/blueprints.yaml';
 
   /**
    * 生成type相关的DDL脚本

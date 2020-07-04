@@ -36,6 +36,5 @@ export class SqlGeneratorFactory {
       default:
         throw new Error('尚为支持的数据库:' + db);
     }
-
   }
 }
