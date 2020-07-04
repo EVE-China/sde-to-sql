@@ -45,6 +45,7 @@ npm run start sqlite
   - [x] 材料研究
   - [x] 时间研究
   - [x] 反应
+- [ ] 精炼
 
 ## PostgreSQL
 
@@ -57,3 +58,4 @@ npm run start sqlite
   - [x] 材料研究
   - [x] 时间研究
   - [x] 反应
+- [ ] 精炼
