@@ -34,7 +34,7 @@ npm run start sqlite
 
 # 目前完成情况
 
-## SQLite
+## PostgreSQL
 
 - [x] Type
   - [x] 多语言支持
@@ -47,7 +47,7 @@ npm run start sqlite
   - [x] 反应
 - [ ] 精炼
 
-## PostgreSQL
+## SQLite
 
 - [x] Type
   - [x] 多语言支持
