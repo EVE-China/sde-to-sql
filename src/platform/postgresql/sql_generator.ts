@@ -42,6 +42,13 @@ export class PostgreSqlGenerator extends AbstractSqlGenerator {
     return `INSERT INTO eve.blueprint_product(id, activityType, probability, typeID, quantity) VALUES(${typeId}, ${type}, ${probability}, ${productId}, ${quantity});`;
   }
 
+  protected initTypeMaterials(): string {
+    return fs.readFileSync(`${__dirname}/type_materials.sql`).toString();
+  }
+
+  protected getTypeMaterial(typeId: number, materialTypeID: number, quantity: number): string {
+    return `INSERT INTO eve.type_materials(typeId, materialTypeID, quantity) VALUES(${typeId}, ${materialTypeID}, ${quantity}) ON CONFLICT(typeId, materialTypeID) DO UPDATE SET quantity = ${quantity}`;
+  }
 }
 
 /**

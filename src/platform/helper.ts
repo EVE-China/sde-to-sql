@@ -9,12 +9,17 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
     let sql = this.initType();
     sql += '\n';
     sql += this.initBluePrint();
+    sql += '\n';
+    sql += this.initTypeMaterials();
     return sql;
   }
+
   data(): string {
     let sql = this.initTypeData();
     sql += '\n';
     sql += this.initBluePrintData();
+    sql += '\n';
+    sql += this.initTypeMaterialsData();
     return sql;
   }
 
@@ -23,6 +28,8 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
   protected static marketGroupsYamlPath = 'sde/sde/fsd/marketGroups.yaml';
   
   protected static blueprintsYamlPath = 'sde/sde/fsd/blueprints.yaml';
+
+  protected static typeMaterialsYamlPath = 'sde/sde/fsd/typeMaterials.yaml';
 
   /**
    * 生成type相关的DDL脚本
@@ -235,6 +242,34 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
   }
 
   /**
+   * 生成物品精炼相关表
+   */
+  protected abstract initTypeMaterials(): string;
+
+  /**
+   * 生成物品精炼相关数据
+   */
+  private initTypeMaterialsData() {
+    const doc = yaml.safeLoad(fs.readFileSync(AbstractSqlGenerator.typeMaterialsYamlPath, 'utf8'));
+    let sql = '';
+    for (const id in doc) {
+      const record = doc[id];
+      if (null != record && null != record.materials) {
+        sql += this.saveTypeMaterials(Number.parseInt(id), record.materials);
+      }
+    }
+    return sql;
+  }
+
+  private saveTypeMaterials(typeId: number, materials: any) {
+    let sql = '';
+    for (const item of materials) {
+      sql += this.getTypeMaterial(typeId, item.materialTypeID, item.quantity) + '\n';
+    }
+    return sql;
+  }
+
+  /**
    * 获取typeSQL
    * 
    * @param typeId typeId
@@ -296,4 +331,12 @@ export abstract class AbstractSqlGenerator implements SqlGenerator {
    * @param quantity    产品数量
    */
   protected abstract getBluePrintProductSQL(typeId: number, type: ActivityType, probability: number, productId: number, quantity: number): string;
+
+  /**
+   * 获取物品精炼材料SQL
+   * @param typeId         物品编号
+   * @param materialTypeID 材料编号
+   * @param quantity       材料数量
+   */
+  protected abstract getTypeMaterial(typeId: number, materialTypeID: number, quantity: number): string;
 }

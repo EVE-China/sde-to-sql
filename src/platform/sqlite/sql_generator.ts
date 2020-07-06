@@ -42,6 +42,12 @@ export class SqliteGenerator extends AbstractSqlGenerator {
     return `REPLACE INTO "blueprint_product"("id", "activityType", "probability", "typeID", "quantity") VALUES(${typeId}, ${type}, ${probability}, ${productId}, ${quantity});`;
   }
   
+  protected initTypeMaterials(): string {
+    throw new Error("Method not implemented.");
+  }
+  protected getTypeMaterial(typeId: number, materialTypeID: number, quantity: number): string {
+    throw new Error("Method not implemented.");
+  }
 }
 
 /**
