@@ -47,7 +47,7 @@ export class PostgreSqlGenerator extends AbstractSqlGenerator {
   }
 
   protected getTypeMaterial(typeId: number, materialTypeID: number, quantity: number): string {
-    return `INSERT INTO eve.type_materials(typeId, materialTypeID, quantity) VALUES(${typeId}, ${materialTypeID}, ${quantity}) ON CONFLICT(typeId, materialTypeID) DO UPDATE SET quantity = ${quantity}`;
+    return `INSERT INTO eve.type_materials(typeId, materialTypeID, quantity) VALUES(${typeId}, ${materialTypeID}, ${quantity}) ON CONFLICT(typeId, materialTypeID) DO UPDATE SET quantity = ${quantity};`;
   }
 }
 
