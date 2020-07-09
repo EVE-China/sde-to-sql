@@ -24,10 +24,10 @@ git submodule update
 npm install
 ```
 
-2.生成对应数据库的sql脚本(目前只支持sqlite)
+2.生成对应数据库的sql脚本
 
 ```sh
-npm run start sqlite
+npm run start postgres
 ```
 
 到项目目录下的dist目录中, 寻找生成的sql脚本.
